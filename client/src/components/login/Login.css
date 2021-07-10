@@ -1,0 +1,69 @@
+.parent {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: url("../../images/main_background_medium.jpg") no-repeat center
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(2px);
+}
+
+.col-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-login {
+  z-index: 1;
+  padding: 40px 30px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 5px;
+}
+
+.card-title-login {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #f0bf33;
+  padding: 0px;
+  color: whitesmoke;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.card-body-login {
+  margin: 10px 0px;
+}
+
+.input-login {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  width: 350px;
+  margin: 8px 0px;
+  border: 0.7px solid #f0bf33;
+  padding: 8px 16px;
+}
+
+.card-button-login {
+  background-color: #f0bf33;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  height: 35px;
+  margin-top: 30px;
+}
