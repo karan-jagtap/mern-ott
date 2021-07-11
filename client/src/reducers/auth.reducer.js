@@ -1,6 +1,7 @@
-import { LOADING } from "../actions/types";
+import { LOADING, LOGIN_USER } from "../actions/types";
 const initialState = {
   user: undefined,
+  message: "",
 };
 
 function authReducer(state = initialState, action) {
@@ -9,6 +10,13 @@ function authReducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
+      };
+    case LOGIN_USER:
+      return {
+        ...state,
+        user: action.payload.user,
+        success: action.payload.success,
+        message: action.payload.message,
       };
     default:
       return state;

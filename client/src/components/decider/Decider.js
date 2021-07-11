@@ -12,4 +12,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(Decider);
+export default connect(mapStateToProps)(Decider);
