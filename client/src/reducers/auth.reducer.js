@@ -12,11 +12,13 @@ function authReducer(state = initialState, action) {
         loading: true,
       };
     case LOGIN_USER:
+      console.log("reducer - ", action);
       return {
         ...state,
-        user: action.payload.user,
-        success: action.payload.success,
-        message: action.payload.message,
+        user: action.user || undefined,
+        success: action.success,
+        message: action.message,
+        loading: false,
       };
     default:
       return state;

@@ -74,6 +74,10 @@ const Login = (props) => {
     console.log("Login.js - onGoogleLoginClick = ", res);
   };
 
+  const redirectToRegister = (e) => {
+    props.history.replace("/register");
+  };
+
   if (props.auth.success) {
     props.history.replace("/dashboard");
   }
@@ -94,9 +98,19 @@ const Login = (props) => {
                     style={{ color: "whitesmoke", marginLeft: 16 }}
                   />
                 </div>
-                {!props.auth.success && props.auth.message !== "" && (
-                  <span className="error-login">{props.auth.message}</span>
-                )}
+                {!props.auth.success &&
+                  props.auth.message === "invalid_credentials" && (
+                    <span
+                      className="error-login"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        fontSize: 14,
+                      }}
+                    >
+                      Invalid Login Credentials
+                    </span>
+                  )}
                 <div className="card-body-login">
                   <div className="input-layout">
                     <input
@@ -130,7 +144,11 @@ const Login = (props) => {
                       <span className="error-login">{passwordErrorMsg}</span>
                     )}
                   </div>
-                  <button className="card-button-login" onClick={onLoginClick}>
+                  <button
+                    className="card-button-login"
+                    onClick={onLoginClick}
+                    disabled={props.auth.loading}
+                  >
                     Login
                   </button>
                   <div className="or-layout-login">
@@ -145,23 +163,24 @@ const Login = (props) => {
                     onSuccess={onGoogleLoginClick}
                     onFailure={onGoogleLoginClick}
                     cookiePolicy={"single_host_origin"}
+                    disabled={props.auth.loading}
                   />
                   <div style={{ color: "whitesmoke", marginTop: 10 }}>
                     New to{" "}
                     <span style={{ color: "#f0bf33", fontSize: 20 }}>
                       ChillaX ?
                     </span>
-                    <a
+                    <span
                       style={{
                         borderBottom: "0.7px solid #f0bf33",
                         textDecoration: "none",
                         color: "white",
                         marginLeft: 10,
                       }}
-                      href="/register"
+                      onClick={!props.auth.loading && redirectToRegister}
                     >
                       Register here
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>

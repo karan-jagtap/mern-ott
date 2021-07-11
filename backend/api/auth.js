@@ -9,11 +9,18 @@ router.post("/login", (req, response) => {
   if (email !== "" && password !== "") {
     AuthModel.find({ email, password })
       .then((res) => {
-        console.log("/login - res - ", res[0]);
-        response.json({
-          success: true,
-          data: { id: res[0]._id, name: res[0].name, email: res[0].email },
-        });
+        if (res[0] !== undefined) {
+          console.log("/login - res - ", res[0]);
+          response.json({
+            success: true,
+            user: { id: res[0]._id, name: res[0].name, email: res[0].email },
+          });
+        } else {
+          response.json({
+            success: false,
+            message: "invalid_credentials",
+          });
+        }
       })
       .catch((err) => {
         console.log("/login - err - ", err);

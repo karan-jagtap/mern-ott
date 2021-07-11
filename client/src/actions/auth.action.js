@@ -7,20 +7,23 @@ export const login_user = (data) => (dispatch) => {
   axios
     .post("/api/auth/login", data)
     .then((res) => {
-      if (res.success) {
-        localStorage.setItem("id", res.data.id);
+      console.log("actions - login - res = ", res.data);
+      if (res.data.success) {
+        localStorage.setItem("id", res.data.user.id);
+        console.log("inside if");
         dispatch({
           type: LOGIN_USER,
           success: true,
-          user: res.data,
+          user: res.data.user,
           message: "",
         });
       } else {
+        console.log("inside else");
         dispatch({
           type: LOGIN_USER,
           success: false,
           user: undefined,
-          message: res.message,
+          message: res.data.message,
         });
       }
     })
