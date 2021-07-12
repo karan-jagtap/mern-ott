@@ -5,7 +5,7 @@ import { GOOGLE_CLIENT_ID } from "../../config/keys";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import "./Login.css";
-import { login_user } from "../../actions/auth.action";
+import { login_user, login_user_google } from "../../actions/auth.action";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -70,8 +70,17 @@ const Login = (props) => {
     return true;
   };
 
-  const onGoogleLoginClick = (res) => {
-    console.log("Login.js - onGoogleLoginClick = ", res);
+  const onGoogleSuccessLoginClick = (res) => {
+    console.log("Login.js - onGoogleSuccessLoginClick = ", res);
+    const data = {
+      name: res.profileObj.name,
+      email: res.profileObj.email,
+    };
+    props.login_user_google(data);
+  };
+
+  const onGoogleFailedLoginClick = (res) => {
+    console.log("Login.js - onGoogleFailedLogin = ", res);
   };
 
   const redirectToRegister = (e) => {
@@ -160,8 +169,8 @@ const Login = (props) => {
                     className="google-button"
                     clientId={GOOGLE_CLIENT_ID}
                     buttonText="Login with Google"
-                    onSuccess={onGoogleLoginClick}
-                    onFailure={onGoogleLoginClick}
+                    onSuccess={onGoogleSuccessLoginClick}
+                    onFailure={onGoogleFailedLoginClick}
                     cookiePolicy={"single_host_origin"}
                     disabled={props.auth.loading}
                   />
@@ -177,7 +186,7 @@ const Login = (props) => {
                         color: "white",
                         marginLeft: 10,
                       }}
-                      onClick={!props.auth.loading && redirectToRegister}
+                      onClick={!props.auth.loading ? redirectToRegister : null}
                     >
                       Register here
                     </span>
@@ -196,4 +205,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { login_user })(Login);
+export default connect(mapStateToProps, { login_user, login_user_google })(
+  Login
+);

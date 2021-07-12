@@ -12,9 +12,10 @@ const AuthSchema = new Schema({
   password: {
     type: String,
   },
-  login_type: {
+  role: {
     type: String,
+    default: "normal",
   },
 });
 
-module.exports = mongoose.model("user_login", AuthSchema);
+module.exports = mongoose.model("users", AuthSchema);

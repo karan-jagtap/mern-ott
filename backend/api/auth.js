@@ -1,5 +1,7 @@
 const express = require("express");
 const AuthModel = require("../models/Auth.Model");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config/keys");
 
 const router = express.Router();
 
@@ -11,9 +13,16 @@ router.post("/login", (req, response) => {
       .then((res) => {
         if (res[0] !== undefined) {
           console.log("/login - res - ", res[0]);
+          const token = jwt.sign(res[0]._id, JWT_SECRET);
           response.json({
             success: true,
-            user: { id: res[0]._id, name: res[0].name, email: res[0].email },
+            token,
+            user: {
+              id: res[0]._id,
+              name: res[0].name,
+              email: res[0].email,
+              role: res[0].role,
+            },
           });
         } else {
           response.json({
@@ -24,6 +33,56 @@ router.post("/login", (req, response) => {
       })
       .catch((err) => {
         console.log("/login - err - ", err);
+        response.json({ success: false, message: err });
+      });
+  }
+});
+
+// login google request
+router.post("/login_google", (req, response) => {
+  const { email, name } = req.body;
+  if (email !== "" && name !== "") {
+    AuthModel.find({ email, name })
+      .then((res) => {
+        if (res[0] !== undefined) {
+          console.log("/login_google - res - ", res[0]);
+          const token = jwt.sign({ id: res[0]._id }, JWT_SECRET);
+          response.json({
+            success: true,
+            token,
+            user: {
+              id: res[0]._id,
+              name: res[0].name,
+              email: res[0].email,
+              role: res[0].role,
+            },
+          });
+        } else {
+          const newAuthModel = new AuthModel({ name, email });
+          newAuthModel
+            .save()
+            .then((res) => {
+              console.log("/login_google - registered - res - ", res);
+              const token = jwt.sign({ id: res._id }, JWT_SECRET);
+              response.json({
+                success: true,
+                token,
+                user: {
+                  id: res._id,
+                  name: res.name,
+                  email: res.email,
+                  role: res.role,
+                },
+              });
+            })
+            .catch((err) => {
+              console.log("/login_google - err - ", err);
+              response.json({ success: false, message: err });
+            });
+        }
+      })
+      .catch((err) => {
+        console.log("/login_google - err - ", err);
         response.json({ success: false, message: err });
       });
   }
@@ -40,7 +99,7 @@ router.post("/register", (req, response) => {
           newAuthModel
             .save()
             .then((res) => {
-              console.log("/register - registered - res - ", res[0]);
+              console.log("/register - registered - res - ", res);
               response.json({ success: true, message: "user_registered" });
             })
             .catch((err) => {
@@ -56,6 +115,28 @@ router.post("/register", (req, response) => {
         response.json({ success: false, message: err });
       });
   }
+});
+
+// user details request
+router.get("/user_details", (req, response) => {
+  jwt.verify(req.headers["auth-token"], JWT_SECRET, (err, data) => {
+    if (data !== undefined) {
+      AuthModel.findOne({ _id: data.id })
+        .then((res) => {
+          console.log("/user_details - res - ", res);
+          if (res !== undefined) {
+            response.json({ success: true, user: res });
+          } else {
+            response.json({ success: false, message: "token_expired" });
+          }
+        })
+        .catch((err) => {
+          console.log("/user_details - catch - err - ", err);
+        });
+    } else {
+      response.json({ success: false, message: "invalid_token" });
+    }
+  });
 });
 
 module.exports = router;

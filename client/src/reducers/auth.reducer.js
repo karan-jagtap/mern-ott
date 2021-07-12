@@ -1,6 +1,9 @@
-import { LOADING, LOGIN_USER } from "../actions/types";
+import { LOADING, LOGIN_USER, LOAD_USER_DETAILS } from "../actions/types";
+
 const initialState = {
-  user: undefined,
+  user: null,
+  id: localStorage.getItem("id") || null,
+  token: localStorage.getItem("token") || null,
   message: "",
 };
 
@@ -11,10 +14,12 @@ function authReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
+    case LOAD_USER_DETAILS:
     case LOGIN_USER:
       console.log("reducer - ", action);
       return {
         ...state,
+        token: action.token,
         user: action.user || undefined,
         success: action.success,
         message: action.message,
