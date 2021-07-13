@@ -180,12 +180,7 @@ const Login = (props) => {
                       ChillaX ?
                     </span>
                     <span
-                      style={{
-                        borderBottom: "0.7px solid #f0bf33",
-                        textDecoration: "none",
-                        color: "white",
-                        marginLeft: 10,
-                      }}
+                      className="link-click-login"
                       onClick={!props.auth.loading ? redirectToRegister : null}
                     >
                       Register here

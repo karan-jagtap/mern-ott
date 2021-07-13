@@ -9,19 +9,19 @@ const router = express.Router();
 router.post("/login", (req, response) => {
   const { email, password } = req.body;
   if (email !== "" && password !== "") {
-    AuthModel.find({ email, password })
+    AuthModel.findOne({ email, password })
       .then((res) => {
-        if (res[0] !== undefined) {
-          console.log("/login - res - ", res[0]);
-          const token = jwt.sign(res[0]._id, JWT_SECRET);
+        if (res !== undefined && res !== null) {
+          console.log("/login - res - ", res);
+          const token = jwt.sign({ id: res._id }, JWT_SECRET);
           response.json({
             success: true,
             token,
             user: {
-              id: res[0]._id,
-              name: res[0].name,
-              email: res[0].email,
-              role: res[0].role,
+              id: res._id,
+              name: res.name,
+              email: res.email,
+              role: res.role,
             },
           });
         } else {
@@ -42,19 +42,19 @@ router.post("/login", (req, response) => {
 router.post("/login_google", (req, response) => {
   const { email, name } = req.body;
   if (email !== "" && name !== "") {
-    AuthModel.find({ email, name })
+    AuthModel.findOne({ email })
       .then((res) => {
-        if (res[0] !== undefined) {
-          console.log("/login_google - res - ", res[0]);
-          const token = jwt.sign({ id: res[0]._id }, JWT_SECRET);
+        if (res !== undefined && res !== null) {
+          console.log("/login_google - res - ", res);
+          const token = jwt.sign({ id: res._id }, JWT_SECRET);
           response.json({
             success: true,
             token,
             user: {
-              id: res[0]._id,
-              name: res[0].name,
-              email: res[0].email,
-              role: res[0].role,
+              id: res._id,
+              name: res.name,
+              email: res.email,
+              role: res.role,
             },
           });
         } else {
@@ -92,7 +92,7 @@ router.post("/login_google", (req, response) => {
 router.post("/register", (req, response) => {
   const { name, email, password } = req.body;
   if (email !== "" && password !== "" && name !== "") {
-    AuthModel.find({ email, password })
+    AuthModel.find({ email })
       .then((res) => {
         if (res.length === 0) {
           const newAuthModel = new AuthModel({ name, email, password });

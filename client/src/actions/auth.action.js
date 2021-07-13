@@ -1,5 +1,11 @@
 import axios from "axios";
-import { LOADING, LOGIN_USER, LOAD_USER_DETAILS } from "./types";
+import {
+  LOADING,
+  LOGIN_USER,
+  LOAD_USER_DETAILS,
+  REGISTER_USER,
+  RESET_STATE,
+} from "./types";
 
 export const login_user = (data) => (dispatch) => {
   dispatch({ type: LOADING });
@@ -68,6 +74,34 @@ export const login_user_google = (data) => (dispatch) => {
     });
 };
 
+export const register_user = (data) => (dispatch) => {
+  dispatch({ type: LOADING });
+  console.log("actions - register_user() - data = ", data);
+  axios
+    .post("/api/auth/register", data)
+    .then((res) => {
+      console.log("actions - register - res = ", res.data);
+      if (res.data.success) {
+        console.log("inside if");
+        dispatch({
+          type: REGISTER_USER,
+          success: true,
+          message: "",
+        });
+      } else {
+        console.log("inside else");
+        dispatch({
+          type: REGISTER_USER,
+          success: false,
+          message: res.data.message,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log("actions - register_user() - catch - ", err);
+    });
+};
+
 export const get_user_details = () => (dispatch, getState) => {
   dispatch({ type: LOADING });
   axios
@@ -99,4 +133,12 @@ export const get_user_details = () => (dispatch, getState) => {
     .catch((err) => {
       console.log("action - /user_details - err - ", err);
     });
+};
+
+export const reset_state = () => {
+  localStorage.removeItem("id");
+  localStorage.removeItem("token");
+  return {
+    type: RESET_STATE,
+  };
 };

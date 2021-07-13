@@ -97,6 +97,7 @@
   width: 100%;
   height: 35px;
   margin-top: 30px;
+  text-transform: uppercase;
 }
 
 .google-button {
@@ -121,4 +122,12 @@
   background-color: whitesmoke;
   align-self: center;
   flex-grow: 1;
+}
+
+.link-click-login {
+  cursor: pointer;
+  border-bottom: 0.7px solid #f0bf33;
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
 }

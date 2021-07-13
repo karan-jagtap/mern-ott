@@ -1,4 +1,11 @@
-import { LOADING, LOGIN_USER, LOAD_USER_DETAILS } from "../actions/types";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import {
+  LOADING,
+  LOGIN_USER,
+  LOAD_USER_DETAILS,
+  REGISTER_USER,
+  RESET_STATE,
+} from "../actions/types";
 
 const initialState = {
   user: null,
@@ -23,6 +30,23 @@ function authReducer(state = initialState, action) {
         user: action.user || undefined,
         success: action.success,
         message: action.message,
+        loading: false,
+      };
+    case REGISTER_USER:
+      console.log("reducer - ", action);
+      return {
+        ...state,
+        success: action.success,
+        message: action.message,
+        loading: false,
+      };
+    case RESET_STATE:
+      return {
+        user: null,
+        success: false,
+        id: null,
+        token: null,
+        message: "",
         loading: false,
       };
     default:

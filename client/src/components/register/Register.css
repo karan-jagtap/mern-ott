@@ -1,0 +1,24 @@
+.app-logo-register {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #f0bf33;
+  margin: 16px 30px;
+  border: 1px solid;
+  padding: 8px;
+  width: fit-content;
+}
+
+.parent-register {
+  min-height: 100vh;
+  height: auto;
+  background: url("../../images/main_background_medium.jpg") no-repeat center
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
