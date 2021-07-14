@@ -88,7 +88,11 @@ const Login = (props) => {
   };
 
   if (props.auth.success) {
-    props.history.replace("/dashboard");
+    if (props.auth.user.role === "normal") {
+      props.history.replace("/dashboard");
+    } else if (props.auth.user.role === "admin") {
+      props.history.replace("admin-dashboard");
+    }
   }
 
   return (

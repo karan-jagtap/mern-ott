@@ -1,0 +1,65 @@
+.app-logo-admin-dashboard {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #f0bf33;
+  margin: 8px;
+  border: 1px solid;
+  padding: 8px;
+  text-align: center;
+  height: 48px;
+}
+
+.ant-menu-item.ant-menu-item-selected.menu-item-selected {
+  background-color: #f0bf33 !important;
+  color: black;
+}
+
+.ant-menu-item.ant-menu-item-selected.menu-item-selected span {
+  color: black;
+}
+
+.header-admin-dashboard {
+  background-color: #121212;
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0px;
+  position: sticky;
+  top: 0;
+}
+
+.logout-container {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: whitesmoke;
+}
+
+.logout-container:hover {
+  color: #f0bf33;
+}
+
+.site-layout {
+  background-color: #eeeeee;
+}
+
+.sub-component-parent-layout {
+  margin: 24px 16px;
+  padding: 24px;
+  background-color: white;
+}
+
+/* Sider stuff */
+#layout-admin-dashboard .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#layout-admin-dashboard .trigger:hover {
+  color: #f0bf33;
+}

@@ -4,6 +4,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import Decider from "./components/decider/Decider";
+import AdminDashboard from "./components/adminDashboard/AdminDashboard";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/admin-dashboard" component={AdminDashboard} />
       </Switch>
     </BrowserRouter>
   );
