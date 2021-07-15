@@ -49,9 +49,21 @@
   margin: 24px 16px;
   padding: 24px;
   background-color: white;
+  border-radius: 5px;
+  z-index: 2;
 }
 
 /* Sider stuff */
+
+.sider-admin-dashboard {
+  background-color: #121212;
+  position: sticky;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
 #layout-admin-dashboard .trigger {
   padding: 0 24px;
   font-size: 18px;

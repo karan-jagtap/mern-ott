@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Layout, Menu } from "antd";
 import {
@@ -12,8 +12,10 @@ import {
 } from "@ant-design/icons";
 import "./AdminDashboard.css";
 import AddVideos from "../addVideos/AddVideos";
+import { get_user_details } from "../../actions/auth.action";
+import Categories from "../categories/Categories";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Sider } = Layout;
 const MENU_ITEMS = [
   {
     key: "home",
@@ -34,6 +36,14 @@ const AdminDashboard = (props) => {
   const [selectedKey, setSelectedKey] = useState("home");
   const [menuName, setMenuName] = useState("Home");
 
+  useEffect(() => {
+    console.log("called useEffect()");
+    if (props.auth.user === null) {
+      console.log("called useEffect() - API");
+      props.get_user_details();
+    }
+  }, [props.auth.user]);
+
   const toggle = () => {
     setCollapsed(!collapsed);
   };
@@ -44,20 +54,19 @@ const AdminDashboard = (props) => {
     setMenuName(MENU_ITEMS.filter((item) => item.key === e.key)[0].name);
   };
 
+  if (props.auth.user !== null) {
+    if (props.auth.user.role !== "admin") {
+      props.history.replace("/dashboard");
+    }
+  }
+
   return (
     <Layout id="layout-admin-dashboard">
       <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
-        style={{
-          backgroundColor: "#121212",
-          position: "sticky",
-          left: 0,
-          top: 0,
-          height: "100vh",
-          overflow: "auto",
-        }}
+        className="sider-admin-dashboard"
       >
         {collapsed ? (
           <div
@@ -123,12 +132,14 @@ const AdminDashboard = (props) => {
         </Header>
         {selectedKey === "home" && <></>}
         {selectedKey === "videos" && <AddVideos />}
-        {selectedKey === "categories" && <></>}
+        {selectedKey === "categories" && <Categories />}
       </Layout>
     </Layout>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default connect(mapStateToProps, {})(AdminDashboard);
+export default connect(mapStateToProps, { get_user_details })(AdminDashboard);

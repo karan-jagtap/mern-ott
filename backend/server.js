@@ -20,6 +20,7 @@ mongoose
 
 // this is for login and register
 app.use("/api/auth/", require("./api/auth"));
+app.use("/api/categories/", require("./api/categories"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

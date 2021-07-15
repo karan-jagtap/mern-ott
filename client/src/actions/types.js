@@ -6,3 +6,5 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOAD_USER_DETAILS = "LOAD_USER_DETAILS";
 export const RESET_STATE = "RESET_STATE";
+export const CATEGORY_LIST = "CATEGORY_LIST";
+export const ADD_CATEGORY = "ADD_CATEGORY";
