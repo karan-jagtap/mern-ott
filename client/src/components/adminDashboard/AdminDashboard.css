@@ -20,7 +20,7 @@
 }
 
 .header-admin-dashboard {
-  background-color: #121212;
+  background-color: #222222;
   color: whitesmoke;
   display: flex;
   align-items: center;
@@ -50,13 +50,12 @@
   padding: 24px;
   background-color: white;
   border-radius: 5px;
-  z-index: 2;
 }
 
 /* Sider stuff */
 
 .sider-admin-dashboard {
-  background-color: #121212;
+  background-color: #222222;
   position: sticky;
   left: 0;
   top: 0;

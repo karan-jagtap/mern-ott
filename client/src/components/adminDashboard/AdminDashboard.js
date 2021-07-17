@@ -87,7 +87,7 @@ const AdminDashboard = (props) => {
         <Menu
           theme="dark"
           mode="inline"
-          style={{ backgroundColor: "#121212" }}
+          style={{ backgroundColor: "#222222" }}
           defaultSelectedKeys={[selectedKey]}
           onClick={onMenuItemClick}
         >

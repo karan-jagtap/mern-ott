@@ -6,6 +6,7 @@ const AuthModel = require("../models/Auth.Model");
 
 const router = express.Router();
 
+// add api
 router.post("/add", (req, response) => {
   jwt.verify(req.headers["auth-token"], JWT_SECRET, (err, data) => {
     if (data !== undefined) {
@@ -46,6 +47,7 @@ router.post("/add", (req, response) => {
   });
 });
 
+// get api
 router.get("/", (req, response) => {
   CategoryModel.find()
     .then((res) => {
@@ -55,6 +57,52 @@ router.get("/", (req, response) => {
     .catch((err) => {
       console.log("categories/ - err - ", err);
     });
+});
+
+// edit api
+router.post("/edit", (req, response) => {
+  jwt.verify(req.headers["auth-token"], JWT_SECRET, (err, data) => {
+    console.log("token = ", data);
+    if (data !== undefined) {
+      console.log("/edit - req - ", req.body);
+      CategoryModel.findOneAndUpdate({ _id: req.body._id }, req.body, {
+        new: true,
+      })
+        .then((res) => {
+          console.log("/edit - ", res);
+          if (res !== undefined && res !== null) {
+            response.json({ success: true, data: res });
+          } else {
+            response.json({ success: false, message: "invalid_input" });
+          }
+        })
+        .catch((err) => {
+          console.log("/edit - catch - err - ", err);
+        });
+    } else {
+      response.json({ success: false, message: "invalid_token" });
+    }
+  });
+});
+
+// delete api
+router.post("/delete", (req, response) => {
+  jwt.verify(req.headers["auth-token"], JWT_SECRET, (err, data) => {
+    console.log("token = ", data);
+    if (data !== undefined) {
+      console.log("/delete - req - ", req.body);
+      CategoryModel.findOneAndDelete({ _id: req.body._id })
+        .then((res) => {
+          console.log("/delete - ", res);
+          response.json({ success: true });
+        })
+        .catch((err) => {
+          console.log("/delete - catch - err - ", err);
+        });
+    } else {
+      response.json({ success: false, message: "invalid_token" });
+    }
+  });
 });
 
 module.exports = router;
