@@ -14,6 +14,7 @@ import "./AdminDashboard.css";
 import AddVideos from "../addVideos/AddVideos";
 import { get_user_details } from "../../actions/auth.action";
 import Categories from "../categories/Categories";
+import AdminHome from "../adminHome/AdminHome";
 
 const { Header, Sider } = Layout;
 const MENU_ITEMS = [
@@ -130,7 +131,7 @@ const AdminDashboard = (props) => {
             <span style={{ marginLeft: 10 }}>Logout</span>
           </div>
         </Header>
-        {selectedKey === "home" && <></>}
+        {selectedKey === "home" && <AdminHome />}
         {selectedKey === "videos" && <AddVideos />}
         {selectedKey === "categories" && <Categories />}
       </Layout>

@@ -17,9 +17,9 @@ const AddVideos = (props) => {
   const [categories, setCategories] = useState([]);
   const [thumbnailFile, setThumbnailFile] = useState("");
   const [decodedVideoId, setDecodedVideoId] = useState("");
+  const [apiCalled, setApiCalled] = useState(false);
 
   useEffect(() => {
-    console.log("calling useEffect()");
     if (props.categories.categories.length === 0) {
       props.get_category();
     }
@@ -90,13 +90,16 @@ const AddVideos = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      props.add_video({
+      const data = {
         title,
         description,
         categories,
-        decodedVideoId,
+        videoId: decodedVideoId,
         thumbnailFile,
-      });
+      };
+      console.log("req data = ", data);
+      props.add_video(data);
+      setApiCalled(true);
     }
   };
 
@@ -108,6 +111,7 @@ const AddVideos = (props) => {
     setCategories([]);
     setVideoId("");
     setErrorMsg("");
+    setApiCalled(false);
   };
 
   return (

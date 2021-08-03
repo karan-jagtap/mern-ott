@@ -1,0 +1,56 @@
+#admin-home .custom-row {
+  display: flex;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  flex-direction: row;
+  column-gap: 20px;
+  overflow-x: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#admin-home .block {
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+}
+
+/* #admin-home .block:hover {
+  transform: scale(1.02);
+} */
+
+#admin-home .video-name {
+  width: 246px;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 5px 10px;
+}
+
+#admin-home .navigation-icon {
+  font-size: 20px;
+  cursor: pointer;
+  align-self: center;
+  margin-top: -25px;
+}
+
+#admin-home .horizontal-layout {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+#admin-home .horizontal-layout-header {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 10px;
+  margin-left: 25px;
+  padding: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#admin-home .custom-row::-webkit-scrollbar {
+  display: none;
+}

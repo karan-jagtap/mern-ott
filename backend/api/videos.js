@@ -9,7 +9,7 @@ route.post("/add", (req, response) => {
   jwt.verify(req.headers["auth-token"], JWT_SECRET, (err, data) => {
     console.log("token = ", data);
     if (data !== undefined) {
-      console.log("/add - req - ", req.body);
+      console.log("/add - req - ", req.body.videoId);
       cloudinary.v2.uploader.upload(
         req.body.thumbnailFile,
         {
@@ -58,16 +58,21 @@ route.post("/add", (req, response) => {
 
 // get videos
 route.get("/", (req, response) => {
-  cloudinary.v2.search
-    .expression("folder:thumbnails")
-    .execute()
+  VideosModel.find()
     .then((res) => {
-      console.log("api/thumbnail/ - res - ", res);
-      res.resources;
+      console.log("api/videos/ - res - ", res);
+      response.json({ success: true, data: res });
     })
     .catch((err) => {
-      console.log("api/thumbnail/ - catch - ", err);
+      console.log("api/videos/ - catch - ", err);
+      response.json({ success: false, message: err });
     });
+  // cloudinary.v2.search
+  //   .expression("folder:thumbnails")
+  //   .execute()
+  //   .then((res) => {
+  //     console.log("api/videos/ - res - ", res);
+  //   })
 });
 
 // get single video

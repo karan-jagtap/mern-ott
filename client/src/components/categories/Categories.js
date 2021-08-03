@@ -25,7 +25,6 @@ const Categories = (props) => {
   const [editNameErrorMsg, setEditNameErrorMsg] = useState("");
 
   useEffect(() => {
-    console.log("calling useEffect()");
     props.get_category();
   }, []);
 
